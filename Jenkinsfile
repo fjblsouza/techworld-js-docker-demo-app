@@ -8,15 +8,15 @@ pipeline {
         }
         stage("Build and Test"){
             steps{
-                sh "docker build . -t new-test-node-app"
+                sh "docker build . -t multibranch-pipeline-node-app"
             }
         }
         stage("Push to DockerHub"){
             steps{
                 withCredentials([usernamePassword(credentialsId:"DockerHub",passwordVariable:"dockerHubPass",usernameVariable:"dockerHubUser")]){ 
-                sh "docker tag new-test-node-app ${env.dockerHubUser}/new-test-node-app:latest" 
+                sh "docker tag  multibranch-pipeline-node-app ${env.dockerHubUser}/ multibranch-pipeline-node-app:latest" 
                 sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPass}" 
-                sh "docker push ${env.dockerHubUser}/new-test-node-app:latest"
+                sh "docker push ${env.dockerHubUser}/ multibranch-pipeline-node-app:latest"
                 }
             }
         }
