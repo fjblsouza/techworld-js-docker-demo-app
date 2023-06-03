@@ -14,9 +14,9 @@ pipeline {
         stage("Push to DockerHub"){
             steps{
                 withCredentials([usernamePassword(credentialsId:"DockerHub",passwordVariable:"dockerHubPass",usernameVariable:"dockerHubUser")]){ 
-                sh "docker tag  multibranch-pipeline-node-app ${env.dockerHubUser}/ multibranch-pipeline-node-app:latest" 
+                sh "docker tag multibranch-pipeline-node-app ${env.dockerHubUser}/multibranch-pipeline-node-app:latest" 
                 sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPass}" 
-                sh "docker push ${env.dockerHubUser}/ multibranch-pipeline-node-app:latest"
+                sh "docker push ${env.dockerHubUser}/multibranch-pipeline-node-app:latest"
                 }
             }
         }
